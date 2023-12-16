@@ -1,0 +1,62 @@
+<div class="bg-white shadow-md rounded-md p-4">
+  <div class="flex items-start gap-4">
+    <!-- Author Image -->
+    <div>
+      <div class="w-10 h-10">
+        <img
+          src="{{ tweet.authorImgPath }}"
+          alt="{{ tweet.author }}"
+          class="w-10 h-10 rounded-full"
+        />
+      </div>
+    </div>
+
+    <!-- Tweet Content -->
+    <div class="flex-1">
+      <div class="flex justify-between">
+        <div class="text-gray-500">@{{ tweet.authorUsername }}</div>
+        <div class="text-gray-500">{{ tweet.timestamp | date : "MMM d" }}</div>
+      </div>
+      <p class="mb-2">{{ tweet.content }}</p>
+
+      <!-- Tweet Actions -->
+      <div class="flex items-center justify-between">
+        <!-- Reposts -->
+        <div appTooltip="Repost" class="flex items-center cursor-pointer">
+          <i class="fa fa-solid fa-retweet"></i>
+          <span class="ml-1" [appNumberFormat]="tweet.retweets">{{
+            tweet.retweets
+          }}</span>
+        </div>
+
+        <!-- Comments -->
+        <div appTooltip="Comment" class="flex items-center cursor-pointer">
+          <i class="fa fa-solid fa-comment"></i>
+          <span class="ml-1" [appNumberFormat]="tweet.comments">{{
+            tweet.comments
+          }}</span>
+        </div>
+
+        <!-- Likes -->
+        <div appTooltip="Like" class="flex items-center cursor-pointer">
+          <i
+            class="fa fa-heart-o"
+            aria-hidden="true"
+            (click)="updateTweetLikes()"
+          ></i>
+          <span class="ml-1" [appNumberFormat]="tweet.likes">{{
+            tweet.likes
+          }}</span>
+        </div>
+
+        <!-- Views -->
+        <div appTooltip="View" class="flex items-center cursor-pointer">
+          <i class="fa fa-bar-chart"></i>
+          <span class="ml-1" [appNumberFormat]="tweet.views">{{
+            tweet.views
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
