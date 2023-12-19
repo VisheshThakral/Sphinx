@@ -4,36 +4,36 @@
     <div>
       <div class="w-10 h-10">
         <img
-          src="{{ tweet.authorImgPath }}"
-          alt="{{ tweet.author }}"
+          src="{{ sphinx.authorImgPath }}"
+          alt="{{ sphinx.author }}"
           class="w-10 h-10 rounded-full"
         />
       </div>
     </div>
 
-    <!-- Tweet Content -->
+    <!-- Sphinx Content -->
     <div class="flex-1">
       <div class="flex justify-between">
-        <div class="text-gray-500">@{{ tweet.authorUsername }}</div>
-        <div class="text-gray-500">{{ tweet.timestamp | date : "MMM d" }}</div>
+        <div class="text-gray-500">@{{ sphinx.authorUsername }}</div>
+        <div class="text-gray-500">{{ sphinx.timestamp | date : "MMM d" }}</div>
       </div>
-      <p class="mb-2">{{ tweet.content }}</p>
+      <p class="mb-2">{{ sphinx.content | shorten: 200 }}</p>
 
-      <!-- Tweet Actions -->
+      <!-- Sphinx Actions -->
       <div class="flex items-center justify-between">
         <!-- Reposts -->
         <div appTooltip="Repost" class="flex items-center cursor-pointer">
           <i class="fa fa-solid fa-retweet"></i>
-          <span class="ml-1" [appNumberFormat]="tweet.retweets">{{
-            tweet.retweets
+          <span class="ml-1" [appNumberFormat]="sphinx.repost">{{
+            sphinx.repost
           }}</span>
         </div>
 
         <!-- Comments -->
         <div appTooltip="Comment" class="flex items-center cursor-pointer">
           <i class="fa fa-solid fa-comment"></i>
-          <span class="ml-1" [appNumberFormat]="tweet.comments">{{
-            tweet.comments
+          <span class="ml-1" [appNumberFormat]="sphinx.comments">{{
+            sphinx.comments
           }}</span>
         </div>
 
@@ -42,18 +42,18 @@
           <i
             class="fa fa-heart-o"
             aria-hidden="true"
-            (click)="updateTweetLikes()"
+            (click)="updateSphinxLikes()"
           ></i>
-          <span class="ml-1" [appNumberFormat]="tweet.likes">{{
-            tweet.likes
+          <span class="ml-1" [appNumberFormat]="sphinx.likes">{{
+            sphinx.likes
           }}</span>
         </div>
 
         <!-- Views -->
         <div appTooltip="View" class="flex items-center cursor-pointer">
           <i class="fa fa-bar-chart"></i>
-          <span class="ml-1" [appNumberFormat]="tweet.views">{{
-            tweet.views
+          <span class="ml-1" [appNumberFormat]="sphinx.views">{{
+            sphinx.views
           }}</span>
         </div>
       </div>

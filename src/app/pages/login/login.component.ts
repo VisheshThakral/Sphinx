@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,18 +8,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  username: string = '';
+  email: string = '';
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   login() {
-    // if (this.username === 'user' && this.password === 'password') {
-    //   // Navigate to home page on successful login
-    //   this.router.navigate(['/home']);
-    // } else {
-    //   this.errorMessage = 'Invalid username or password';
-    // }
+    this.authService
+      .login({
+        email: this.email,
+        password: this.password,
+      })
+      .subscribe(
+        () => {
+          this.router.navigate(['/']);
+        },
+        (error) => {
+          console.error('Login failed', error);
+        }
+      );
   }
 }

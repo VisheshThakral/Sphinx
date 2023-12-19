@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Tweet } from '../../models/tweet.model';
+import { Sphinx } from '../../models/sphinx.model';
 import { Pagination } from '../../models/pagination.model';
 import { environment } from '../../../environments/environment';
 
@@ -9,10 +9,10 @@ import { environment } from '../../../environments/environment';
 export class HomeService {
   constructor(private http: HttpClient) {}
 
-  getTweetsList(
+  getSphinxList(
     page: number
-  ): Observable<{ tweets: Tweet[]; paginationInfo: Pagination }> {
-    const apiUrl = `${environment.apiUrl}/tweets?page=${page}`;
-    return this.http.get<{ tweets: Tweet[]; paginationInfo: Pagination }>(apiUrl);
+  ): Observable<{ sphinx: Sphinx[]; paginationInfo: Pagination }> {
+    const apiUrl = `${environment.apiUrl}/sphinx/all?page=${page}`;
+    return this.http.get<{ sphinx: Sphinx[]; paginationInfo: Pagination }>(apiUrl);
   }
 }

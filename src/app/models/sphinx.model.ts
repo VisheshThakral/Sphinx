@@ -1,4 +1,4 @@
-export interface Tweet {
+export interface Sphinx {
   _id: number;
   content: string;
   author: string;
@@ -6,7 +6,7 @@ export interface Tweet {
   authorImgPath: string;
   timestamp: Date;
   likes: number;
-  retweets: number;
+  repost: number;
   comments: number;
   views: number;
 }

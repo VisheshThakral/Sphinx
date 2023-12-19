@@ -1,3 +1,4 @@
 <div class="list">
-  <app-tweet-list> </app-tweet-list>
+  <p *ngIf="isAuthenticated">Authenticated</p>
+  <app-sphinx-list> </app-sphinx-list>
 </div>
