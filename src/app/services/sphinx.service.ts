@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable()
-export class TweetService {
+export class SphinxService {
   constructor(private http: HttpClient) {}
 
-  updateLikes(tweetId: Number): Observable<{}> {
+  updateLikes(sphinxId: Number): Observable<{}> {
     const apiUrl = `${environment.apiUrl}/update-likes`;
-    return this.http.put<any>(apiUrl, tweetId);
+    return this.http.put<any>(apiUrl, sphinxId);
   }
 }

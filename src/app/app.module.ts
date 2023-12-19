@@ -2,27 +2,30 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/layouts/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
-import { TweetComponent } from './components/utilities/tweet/tweet.component';
-import { TweetListComponent } from './components/tweet-list/tweet-list.component';
+import { SphinxComponent } from './components/utilities/sphinx/sphinx.component';
+import { SphinxListComponent } from './components/sphinx-list/sphinx-list.component';
 import { TooltipDirective } from './directives/tooltip.directive';
 import { NumberFormatDirective } from './directives/number-format.directive';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './components/layouts/footer/footer.component';
-import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ShortenPipe } from './pipes/shorten.pipe';
+import { AuthInterceptorService } from './interceptors/auth-interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
+    ShortenPipe,
     HeaderComponent,
     HomeComponent,
-    TweetComponent,
-    TweetListComponent,
+    SphinxComponent,
+    SphinxListComponent,
     TooltipDirective,
     NumberFormatDirective,
     LoginComponent,
@@ -36,9 +39,15 @@ import { NgxSpinnerModule } from "ngx-spinner";
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
