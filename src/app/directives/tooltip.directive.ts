@@ -32,7 +32,7 @@ export class TooltipDirective {
     const tooltipRect = this.tooltipElement.getBoundingClientRect();
 
     const top = elRect.top - tooltipRect.height + 20;
-    const left = elRect.left + elRect.width / 2 - tooltipRect.width / 2 - 35;
+    const left = elRect.left + elRect.width / 2 - tooltipRect.width / 2 - 40;
 
     this.renderer.setStyle(this.tooltipElement, 'top', `${top}px`);
     this.renderer.setStyle(this.tooltipElement, 'left', `${left}px`);

@@ -1,17 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
-  private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
-  
+  private isLoggedInSubject: BehaviorSubject<boolean>;
+  public isLoggedIn$: Observable<boolean>;
+  // private currentUserSubject: BehaviorSubject<User>;
+  // public currentUser: Observable<User>;
+
+  constructor(private http: HttpClient) {
+    const hasToken = !!localStorage.getItem('token');
+
+    this.isLoggedInSubject = new BehaviorSubject<boolean>(hasToken);
+    this.isLoggedIn$ = this.isLoggedInSubject.asObservable();
+  }
+
   login(credentials: { email: string; password: string }): Observable<any> {
     const apiUrl = `${environment.apiUrl}/user/login`;
 
@@ -22,9 +31,21 @@ export class AuthService {
           const token = response.headers.get('Authorization');
           if (token) {
             localStorage.setItem('token', token);
-            this.isLoggedInSubject.next(true)
+            this.isLoggedInSubject.next(true);
           }
+          // this.currentUserSubject.next({ id: response.body.userId });
         })
       );
+  }
+
+  public get isAuthenticated(): boolean {
+    return this.isLoggedInSubject.value;
+  }
+
+  // public get currentUserValue(): User {}
+
+  logout() {
+    localStorage.removeItem('token');
+    this.isLoggedInSubject.next(false);
   }
 }
