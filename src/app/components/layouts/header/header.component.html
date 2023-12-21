@@ -5,11 +5,11 @@
       <a routerLink="/" class="text-xl font-bold">Home</a>
     </div>
     <div class="flex items-center space-x-4">
-      <ng-container *ngIf="isAuthenticated; else notAuthenticatedLinks">
+      <ng-container *ngIf="currentUser; else notAuthenticatedLinks">
         <a routerLink="/explore" class="text-xl" appTooltip="Explore">
           <i class="fa fa-search" aria-hidden="true"></i>
         </a>
-        <a
+        <!-- <a
           routerLink="/notifications"
           class="text-xl"
           appTooltip="Notifications"
@@ -18,12 +18,15 @@
         </a>
         <a routerLink="/profile" class="text-xl" appTooltip="Messages">
           <i class="fa fa-envelope" aria-hidden="true"></i>
-        </a>
+        </a> -->
         <a routerLink="/post" class="text-xl" appTooltip="Post">
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </a>
         <a routerLink="/profile" class="text-xl" appTooltip="Profile">
           <i class="fa fa-user" aria-hidden="true"></i>
+        </a>
+        <a class="text-xl" (click)="getUserLogOut()" appTooltip="Log Out">
+          <i class="fa fa-sign-out" aria-hidden="true"></i>
         </a>
       </ng-container>
 

@@ -1,5 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -7,19 +8,20 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnDestroy{
-  isAuthenticated: boolean = false;
+export class HeaderComponent{
+  currentUser: User;
   private subscription: Subscription;
 
   constructor(private authService: AuthService) {
-    this.subscription = this.authService.isLoggedIn$.subscribe(
-      (isLoggedIn) => {
-        this.isAuthenticated = isLoggedIn;
-      },
-      (error) => {
-        console.log(error);
+    this.subscription = this.authService.currentUser.subscribe(
+      (user) => {
+        this.currentUser = user;
       }
-    );
+    )
+  }
+
+  getUserLogOut() {
+    this.authService.logout();
   }
 
   ngOnDestroy(): void {
