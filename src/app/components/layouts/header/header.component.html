@@ -1,18 +1,39 @@
 <!-- header.component.html -->
 <div class="bg-gray-800 text-white p-4 fixed w-screen top-0">
-    <div class="container mx-auto flex justify-between items-center">
-      <div class="flex items-center">
-        <a routerLink="/" class="text-xl font-bold">Home</a>
-      </div>
-      <div class="flex items-center space-x-4">
-        <!-- <a routerLink="/explore" class="text-xl">Explore</a>
-        <a routerLink="/notifications" class="text-xl">Notifications</a>
-        <a routerLink="/profile" class="text-xl">Messages</a>
-        <a routerLink="/post" class="text-xl">Post</a>
-        <a routerLink="/profile" class="text-xl">Profile</a> -->
+  <div class="container mx-auto flex justify-between items-center">
+    <div class="flex items-center">
+      <a routerLink="/" class="text-xl font-bold">Home</a>
+    </div>
+    <div class="flex items-center space-x-4">
+      <ng-container *ngIf="currentUser; else notAuthenticatedLinks">
+        <a routerLink="/explore" class="text-xl" appTooltip="Explore">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </a>
+        <!-- <a
+          routerLink="/notifications"
+          class="text-xl"
+          appTooltip="Notifications"
+        >
+          <i class="fa fa-bell" aria-hidden="true"></i>
+        </a>
+        <a routerLink="/profile" class="text-xl" appTooltip="Messages">
+          <i class="fa fa-envelope" aria-hidden="true"></i>
+        </a> -->
+        <a routerLink="/post" class="text-xl" appTooltip="Post">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </a>
+        <a routerLink="/profile" class="text-xl" appTooltip="Profile">
+          <i class="fa fa-user" aria-hidden="true"></i>
+        </a>
+        <a class="text-xl" (click)="getUserLogOut()" appTooltip="Log Out">
+          <i class="fa fa-sign-out" aria-hidden="true"></i>
+        </a>
+      </ng-container>
+
+      <ng-template #notAuthenticatedLinks>
         <a routerLink="/sign-up" class="text-xl">Sign up</a>
-        <a routerLink="/log-in" class="text-xl">Log In</a>
-      </div>
+        <a routerLink="/login" class="text-xl">Log In</a>
+      </ng-template>
     </div>
   </div>
-  
+</div>
