@@ -3,7 +3,6 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs';
 import { HomeService } from '../../pages/home/home.service';
 import { Sphinx } from '../../models/sphinx.model';
-import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-sphinx-list',
@@ -12,10 +11,7 @@ import { LoadingService } from 'src/app/services/loading.service';
   providers: [HomeService],
 })
 export class SphinxListComponent implements OnDestroy {
-  constructor(
-    private homeService: HomeService,
-    private loadingService: LoadingService
-  ) {}
+  constructor(private homeService: HomeService) {}
 
   sphinxList: Sphinx[] = [];
   page: number = 1;
@@ -44,7 +40,6 @@ export class SphinxListComponent implements OnDestroy {
   }
 
   loadSphinxes() {
-    this.loadingService.showLoader();
     this.homeService
       .getSphinxList(this.page)
       .pipe(takeUntil(this.destroy$))
@@ -62,11 +57,7 @@ export class SphinxListComponent implements OnDestroy {
           this.sphinxList = [...this.sphinxList, ...newSphinxs];
         },
         (error) => {
-          this.loadingService.hideLoader();
           console.error('Error fetching data:', error);
-        },
-        () => {
-          this.loadingService.hideLoader();
         }
       );
   }

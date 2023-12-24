@@ -18,6 +18,8 @@ import { FooterComponent } from './components/layouts/footer/footer.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ShortenPipe } from './pipes/shorten.pipe';
 import { AuthInterceptorService } from './interceptors/auth-interceptor.service';
+import { LoadingComponent } from './components/utilities/loading/loading.component';
+import { SearchInputComponent } from './components/utilities/search-input/search-input.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +33,8 @@ import { AuthInterceptorService } from './interceptors/auth-interceptor.service'
     LoginComponent,
     SignupComponent,
     FooterComponent,
+    LoadingComponent,
+    SearchInputComponent,
   ],
   imports: [
     FormsModule,
