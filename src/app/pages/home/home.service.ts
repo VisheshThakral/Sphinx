@@ -12,7 +12,7 @@ export class HomeService {
   getSphinxList(
     page: number
   ): Observable<{ sphinx: Sphinx[]; paginationInfo: Pagination }> {
-    const apiUrl = `${environment.apiUrl}/sphinx/all?page=${page}`;
+    const apiUrl = `${environment.apiUrl}/sphinx/list?page=${page}`;
     return this.http.get<{ sphinx: Sphinx[]; paginationInfo: Pagination }>(apiUrl);
   }
 }

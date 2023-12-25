@@ -4,8 +4,8 @@
     <div>
       <div class="w-10 h-10">
         <img
-          src="{{ sphinx.authorImgPath }}"
-          alt="{{ sphinx.author }}"
+          src="{{user.userImage}}"
+          alt="image"
           class="w-10 h-10 rounded-full"
         />
       </div>
@@ -14,7 +14,7 @@
     <!-- Sphinx Content -->
     <div class="flex-1">
       <div class="flex justify-between">
-        <div class="text-gray-500">@{{ sphinx.authorUsername }}</div>
+        <div class="text-gray-500">@{{user.userName}}</div>
         <div class="text-gray-500">{{ sphinx.timestamp | date : "MMM d" }}</div>
       </div>
       <p class="mb-2">{{ sphinx.content | shorten: 200 }}</p>
@@ -24,17 +24,13 @@
         <!-- Reposts -->
         <div appTooltip="Repost" class="flex items-center cursor-pointer">
           <i class="fa fa-retweet"></i>
-          <span class="ml-1" [appNumberFormat]="sphinx.repost">{{
-            sphinx.repost
-          }}</span>
+          <span class="ml-1">0</span>
         </div>
 
         <!-- Comments -->
         <div appTooltip="Comment" class="flex items-center cursor-pointer">
           <i class="fa fa-comment-o" aria-hidden="true"></i>
-          <span class="ml-1" [appNumberFormat]="sphinx.comments">{{
-            sphinx.comments
-          }}</span>
+          <span class="ml-1">0</span>
         </div>
 
         <!-- Likes -->
@@ -52,9 +48,7 @@
         <!-- Views -->
         <div appTooltip="View" class="flex items-center cursor-pointer">
           <i class="fa fa-bar-chart"></i>
-          <span class="ml-1" [appNumberFormat]="sphinx.views">{{
-            sphinx.views
-          }}</span>
+          <span class="ml-1">0</span>
         </div>
       </div>
     </div>

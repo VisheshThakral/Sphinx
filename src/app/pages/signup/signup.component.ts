@@ -11,10 +11,14 @@ export class SignupComponent {
 
   constructor(private fb: FormBuilder) {
     this.signupForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
+      userName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       fullName: ['', [Validators.required, Validators.minLength(3)]],
+      userImage: [
+        'https://loremflickr.com/640/480/abstract',
+        [Validators.required],
+      ],
     });
   }
 
