@@ -1,12 +1,7 @@
 export interface Sphinx {
-  _id: number;
+  sphinxId: number;
   content: string;
-  author: string;
-  authorUsername: string;
-  authorImgPath: string;
+  userId: string;
   timestamp: Date;
   likes: number;
-  repost: number;
-  comments: number;
-  views: number;
 }

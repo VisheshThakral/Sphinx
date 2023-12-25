@@ -27,15 +27,14 @@ export class AuthService {
       .post<any>(apiUrl, credentials, { observe: 'response' })
       .pipe(
         tap((response) => {
-          localStorage.setItem(
-            'user',
-            JSON.stringify({ id: response.body.userId })
-          );
+          const userId = response.body.data.userId;
           const token = response.headers.get('Authorization');
-          if (token) {
+          const user = response.body.data;
+          if (token && userId) {
             localStorage.setItem('token', token);
+            localStorage.setItem('user', JSON.stringify(user));
+            this.currentUserSubject.next(user);
           }
-          this.currentUserSubject.next({ id: response.body.userId });
         })
       );
   }
@@ -46,7 +45,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('user')
+    localStorage.removeItem('user');
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }

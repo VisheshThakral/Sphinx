@@ -46,14 +46,7 @@ export class SphinxListComponent implements OnDestroy {
       .subscribe(
         (response) => {
           this.totalPages = response.paginationInfo.totalPages;
-          const newSphinxs = response.sphinx.map((sphinx) => {
-            return {
-              ...sphinx,
-              authorImgPath: sphinx['authImg'],
-              timestamp: sphinx['createdAt'],
-              authorUsername: sphinx['userName'],
-            };
-          });
+          const newSphinxs = response.sphinx;
           this.sphinxList = [...this.sphinxList, ...newSphinxs];
         },
         (error) => {
