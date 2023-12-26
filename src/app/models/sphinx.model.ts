@@ -1,7 +1,6 @@
 export interface Sphinx {
-  sphinxId: number;
+  sphinxId: string;
   content: string;
-  userId: string;
-  timestamp: Date;
   likes: number;
+  isLikedByUser: boolean;
 }

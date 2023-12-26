@@ -4,7 +4,7 @@
     <div>
       <div class="w-10 h-10">
         <img
-          src="{{user.userImage}}"
+          src="{{ user.userImage }}"
           alt="image"
           class="w-10 h-10 rounded-full"
         />
@@ -14,40 +14,41 @@
     <!-- Sphinx Content -->
     <div class="flex-1">
       <div class="flex justify-between">
-        <div class="text-gray-500">@{{user.userName}}</div>
-        <div class="text-gray-500">{{ sphinx.timestamp | date : "MMM d" }}</div>
+        <div class="text-gray-500">@{{ user.userName }}</div>
+        <!-- <div class="text-gray-500">{{ _sphinx.timestamp | date : "MMM d" }}</div> -->
       </div>
-      <p class="mb-2">{{ sphinx.content | shorten: 200 }}</p>
+      <p class="mb-2">{{ _sphinx.content | shorten : 200 }}</p>
 
       <!-- Sphinx Actions -->
       <div class="flex items-center justify-between">
         <!-- Reposts -->
         <div appTooltip="Repost" class="flex items-center cursor-pointer">
-          <i class="fa fa-retweet"></i>
+          <i class="fa-solid fa-retweet"></i>
           <span class="ml-1">0</span>
         </div>
 
         <!-- Comments -->
         <div appTooltip="Comment" class="flex items-center cursor-pointer">
-          <i class="fa fa-comment-o" aria-hidden="true"></i>
+          <i class="fa-regular fa-comment"></i>
           <span class="ml-1">0</span>
         </div>
 
         <!-- Likes -->
         <div appTooltip="Like" class="flex items-center cursor-pointer">
-          <i
-            class="fa fa-heart-o"
-            aria-hidden="true"
-            (click)="updateSphinxLikes()"
-          ></i>
-          <span class="ml-1" [appNumberFormat]="sphinx.likes">{{
-            sphinx.likes
-          }}</span>
+          <div (click)="toggleLikes()">
+            <span *ngIf="_sphinx.isLikedByUser" class="text-red-600"
+              ><i class="fa-solid fa-heart"></i
+            ></span>
+            <span *ngIf="!_sphinx.isLikedByUser">
+              <i class="fa-regular fa-heart"></i>
+            </span>
+          </div>
+          <span class="ml-1">{{ _sphinx.likes }}</span>
         </div>
 
         <!-- Views -->
         <div appTooltip="View" class="flex items-center cursor-pointer">
-          <i class="fa fa-bar-chart"></i>
+          <i class="fa-solid fa-chart-column"></i>
           <span class="ml-1">0</span>
         </div>
       </div>
