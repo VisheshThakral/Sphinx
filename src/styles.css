@@ -3,8 +3,6 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@import '~font-awesome/css/font-awesome.css';
-
 .tooltip {
   background-color: #333;
   color: #fff;
