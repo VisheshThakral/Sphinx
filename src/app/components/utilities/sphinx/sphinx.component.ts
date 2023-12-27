@@ -13,8 +13,10 @@ import { SphinxService } from 'src/app/services/sphinx.service';
 })
 export class SphinxComponent implements OnDestroy {
   _sphinx: Sphinx;
+  sphinxId: string;
   @Input() set sphinx(value: Sphinx) {
     this._sphinx = value;
+    this.sphinxId = value.sphinxId;
   }
   user: User;
   sphinxLiked: boolean = false;
@@ -30,17 +32,28 @@ export class SphinxComponent implements OnDestroy {
   }
 
   toggleLikes() {
-    console.log(this._sphinx);
-    const sphinxId = this._sphinx.sphinxId;
     this._sphinx.isLikedByUser = !this._sphinx.isLikedByUser;
     if (this._sphinx.isLikedByUser) {
       this.sphinxService
-        .likeSphinx(sphinxId)
+        .likeSphinx(this.sphinxId)
         .subscribe((response) => this._sphinx.likes++);
     } else {
       this.sphinxService
-        .dislikeSphinx(sphinxId)
+        .dislikeSphinx(this.sphinxId)
         .subscribe((response) => this._sphinx.likes--);
+    }
+  }
+
+  toggleRepost() {
+    this._sphinx.isRepostedByUser = !this._sphinx.isRepostedByUser;
+    if (this._sphinx.isRepostedByUser) {
+      this.sphinxService
+        .repostSphinx(this.sphinxId)
+        .subscribe((response) => this._sphinx.reposts++);
+    } else {
+      this.sphinxService
+        .undoRepost(this.sphinxId)
+        .subscribe((response) => this._sphinx.reposts--);
     }
   }
 
