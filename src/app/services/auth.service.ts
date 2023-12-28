@@ -39,6 +39,17 @@ export class AuthService {
       );
   }
 
+  signUp(userData: {
+    email: string;
+    password: string;
+    fullName: string;
+    userImage: string;
+    userName: string;
+  }): Observable<any> {
+    const apiUrl = `${environment.apiUrl}/user/register`;
+    return this.http.post<any>(apiUrl, userData);
+  }
+
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
   }

@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs';
 import { HomeService } from '../../pages/home/home.service';
 import { Sphinx } from '../../models/sphinx.model';
+import { SphinxModalService } from 'src/app/services/sphinx-modal.service';
 
 @Component({
   selector: 'app-sphinx-list',
@@ -11,15 +12,26 @@ import { Sphinx } from '../../models/sphinx.model';
   providers: [HomeService],
 })
 export class SphinxListComponent implements OnDestroy {
-  constructor(private homeService: HomeService) {}
+  constructor(
+    private homeService: HomeService,
+    private sphinxModalService: SphinxModalService
+  ) {}
 
   sphinxList: Sphinx[] = [];
   page: number = 1;
   totalPages: number = 0;
+  showTweetModal: boolean = false;
   private destroy$ = new Subject<void>();
 
   ngOnInit(): void {
     this.loadSphinxes();
+    this.sphinxModalService.openTweetModal$.subscribe(() => {
+      this.showTweetModal = true;
+    });
+
+    this.sphinxModalService.closeTweetModal$.subscribe(() => {
+      this.showTweetModal = false;
+    });
   }
 
   ngOnDestroy(): void {
