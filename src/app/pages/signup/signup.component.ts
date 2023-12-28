@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -9,7 +11,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SignupComponent {
   signupForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.signupForm = this.fb.group({
       userName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
@@ -23,12 +29,13 @@ export class SignupComponent {
   }
 
   onSubmit() {
-    // Handle form submission
     if (this.signupForm.valid) {
-      // Perform signup logic
       console.log('Form submitted:', this.signupForm.value);
+      this.authService.signUp(this.signupForm.value).subscribe(() => {
+        this.router.navigate(['/']);
+      });
     } else {
-      // Display error messages or handle invalid form
+      console.log('Form Invalid');
     }
   }
 }

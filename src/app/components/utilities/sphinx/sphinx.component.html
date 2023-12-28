@@ -14,8 +14,10 @@
     <!-- Sphinx Content -->
     <div class="flex-1">
       <div class="flex justify-between">
-        <div class="text-gray-500">@{{ user.userName }}</div>
-        <!-- <div class="text-gray-500">{{ _sphinx.timestamp | date : "MMM d" }}</div> -->
+        <div class="text-gray-500">@{{ _sphinx.userName }}</div>
+        <div class="text-gray-500">
+          {{ _sphinx.createdAt | date : "MMM d" }}
+        </div>
       </div>
       <p class="mb-2">{{ _sphinx.content | shorten : 200 }}</p>
 
@@ -24,7 +26,7 @@
         <!-- Comments -->
         <div appTooltip="Comment" class="flex items-center cursor-pointer">
           <i class="fa-regular fa-comment"></i>
-          <span>0</span>
+          <span class="ml-1">0</span>
         </div>
 
         <!-- Reposts -->
@@ -42,6 +44,7 @@
             ></i>
           </div>
           <span
+            class="ml-1"
             [ngClass]="
               _sphinx.isRepostedByUser === true ? 'text-green-600' : ''
             "
@@ -60,6 +63,7 @@
             </span>
           </div>
           <span
+            class="ml-1"
             [ngClass]="_sphinx.isLikedByUser === true ? 'text-pink-600' : ''"
             >{{ _sphinx.likes }}</span
           >
@@ -68,7 +72,7 @@
         <!-- Views -->
         <div appTooltip="View" class="flex items-center cursor-pointer">
           <i class="fa-solid fa-chart-column"></i>
-          <span>0</span>
+          <span class="ml-1">0</span>
         </div>
       </div>
     </div>

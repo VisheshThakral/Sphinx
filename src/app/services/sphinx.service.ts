@@ -7,7 +7,12 @@ import { environment } from '../../environments/environment';
 export class SphinxService {
   constructor(private http: HttpClient) {}
 
-  likeSphinx(sphinxId: string): Observable<{ any }> {
+  postSphinx(content: string): Observable<any> {
+    const apiUrl = `${environment.apiUrl}/sphinx/create`;
+    return this.http.post<any>(apiUrl, { content });
+  }
+
+  likeSphinx(sphinxId: string): Observable<any> {
     const apiUrl = `${environment.apiUrl}/user/likes`;
     return this.http.post<any>(apiUrl, { sphinxId });
   }

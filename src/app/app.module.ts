@@ -20,6 +20,7 @@ import { ShortenPipe } from './pipes/shorten.pipe';
 import { AuthInterceptorService } from './interceptors/auth-interceptor.service';
 import { LoadingComponent } from './components/utilities/loading/loading.component';
 import { SearchInputComponent } from './components/utilities/search-input/search-input.component';
+import { SphinxModalComponent } from './components/utilities/sphinx-modal/sphinx-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +36,7 @@ import { SearchInputComponent } from './components/utilities/search-input/search
     FooterComponent,
     LoadingComponent,
     SearchInputComponent,
+    SphinxModalComponent,
   ],
   imports: [
     FormsModule,
