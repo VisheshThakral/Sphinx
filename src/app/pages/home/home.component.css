@@ -1,3 +1,11 @@
 .list {
   background-color: #f8f9fa;
 }
+
+.flex-20 {
+  flex: 0.2;
+}
+
+.flex-60 {
+  flex: 0.6;
+}
