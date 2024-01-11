@@ -7,6 +7,11 @@ import { environment } from '../../environments/environment';
 export class SphinxService {
   constructor(private http: HttpClient) {}
 
+  uploadUserImage(formData: FormData): Observable<any> {
+    const apiUrl = `${environment.apiUrl}/sphinx/upload-image`;
+    return this.http.post<any>(apiUrl, formData);
+  }
+
   postSphinx(content: string): Observable<any> {
     const apiUrl = `${environment.apiUrl}/sphinx/create`;
     return this.http.post<any>(apiUrl, { content });
