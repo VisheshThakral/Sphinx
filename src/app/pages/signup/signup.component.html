@@ -1,98 +1,157 @@
-<form
-  [formGroup]="signupForm"
-  (ngSubmit)="onSubmit()"
-  class="max-w-3xl mx-auto mt-8 p-8 bg-white shadow-md rounded-md"
->
-  <h2 class="text-3xl font-extrabold text-center text-gray-900 mb-6">
-    Sign up for an account
-  </h2>
-
-  <div class="flex">
-    <!-- User Image -->
-    <div class="mb-4 mr-4 flex justify-between items-center" style="flex: 0.4">
-      <label
-        for="userImage"
-        class="rounded-full bg-slate-200 h-72 flex-1"
-      >
-        <img
-          *ngIf="selectedImage"
-          [src]="selectedImage"
-          alt="Selected Image"
-          class="rounded-full h-72"
-        />
-        <input
-          id="userImage"
-          name="userImage"
-          type="file"
-          (change)="onImageSelected($event)"
-          class="mt-1 w-full focus:outline-none opacity-0"
-        />
-      </label>
+<div class="relative h-screen flex items-center justify-center">
+  <div
+    class="absolute inset-0 h-full bg-cover bg-no-repeat bg-center blur-lg -z-10"
+    style="background-image: url('../../../assets/background.png')"
+  ></div>
+  <div
+    *ngIf="isOnFirstPage"
+    class="bg-white bg-opacity-90 shadow-lg rounded-3xl overflow-hidden md:flex w-3/4 h-4/5"
+  >
+    <!-- Image Section -->
+    <div class="md:w-1/2">
+      <img
+        class="object-cover w-full h-full"
+        src="../../../assets/signup-bg.jpg"
+        alt="Registration Image"
+      />
     </div>
-
-    <div style="flex: 0.6">
-      <!-- Username -->
-      <div class="mb-4">
-        <label for="username" class="block text-sm font-medium text-gray-700"
-          >Username:</label
-        >
-        <input
-          id="userName"
-          name="username"
-          type="text"
-          formControlName="userName"
-          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-
-      <!-- Full Name -->
-      <div class="mb-4">
-        <label for="fullName" class="block text-sm font-medium text-gray-700"
-          >Full Name:</label
-        >
-        <input
-          id="fullName"
-          name="fullName"
-          type="text"
-          formControlName="fullName"
-          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-
-      <!-- Email -->
-      <div class="mb-4">
-        <label for="email" class="block text-sm font-medium text-gray-700"
-          >Email:</label
-        >
-        <input
-          id="email"
-          name="email"
-          type="email"
-          formControlName="email"
-          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-
-      <!-- Password -->
-      <div class="mb-4">
-        <label for="password" class="block text-sm font-medium text-gray-700"
-          >Password:</label
-        >
-        <input
-          id="password"
-          name="password"
-          type="password"
-          formControlName="password"
-          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-
-      <button
-        type="submit"
-        class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+    <!-- Registration Details Section -->
+    <div class="md:w-1/2 px-12 flex justify-center items-center">
+      <form
+        class="space-y-6 flex-1"
+        ngNativeValidate
+        (ngSubmit)="goToSecondPage()"
       >
-        Sign Up
-      </button>
+        <h2 class="text-2xl font-bold mb-8 text-gray-800 capitalize">
+          Lets get started
+        </h2>
+
+        <!-- Full Name -->
+        <div class="form-control relative mb-5 w-full">
+          <input
+            type="text"
+            name="fullname"
+            required
+            [(ngModel)]="fullName"
+            class="block w-full px-0 pt-4 pb-2 bg-transparent border-0 border-b-2 border-gray-800 text-lg text-gray-900 focus:border-darksalmon focus:outline-none focus:ring-0 peer"
+          />
+          <label
+            class="absolute top-0 left-0 flex items-center text-lg text-gray-600 transition-all transform peer-focus:text-darksalmon peer-focus:-translate-y-6 peer-valid:text-darksalmon peer-valid:-translate-y-6"
+          >
+            <span>Full Name</span>
+          </label>
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-control relative mb-5 w-full">
+          <input
+            type="text"
+            name="email"
+            required
+            [(ngModel)]="email"
+            class="block w-full px-0 pt-4 pb-2 bg-transparent border-0 border-b-2 border-gray-800 text-lg text-gray-900 focus:border-darksalmon focus:outline-none focus:ring-0 peer"
+          />
+          <label
+            class="absolute top-0 left-0 flex items-center text-lg text-gray-600 transition-all transform peer-focus:text-darksalmon peer-focus:-translate-y-6 peer-valid:text-darksalmon peer-valid:-translate-y-6"
+          >
+            <span>Email</span>
+          </label>
+        </div>
+
+        <!-- Password -->
+        <div class="form-control relative mb-5 w-full">
+          <input
+            type="password"
+            name="password"
+            required
+            [(ngModel)]="password"
+            class="block w-full px-0 pt-4 pb-2 bg-transparent border-0 border-b-2 border-gray-800 text-lg text-gray-900 focus:border-darksalmon focus:outline-none focus:ring-0 peer"
+          />
+          <label
+            class="absolute top-0 left-0 flex items-center text-lg text-gray-600 transition-all transform peer-focus:text-darksalmon peer-focus:-translate-y-6 peer-valid:text-darksalmon peer-valid:-translate-y-6"
+          >
+            <span>Password</span>
+          </label>
+        </div>
+        <div>
+          <button
+            type="submit"
+            class="w-full px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          >
+            Next
+          </button>
+        </div>
+      </form>
     </div>
   </div>
-</form>
+
+  <form
+    *ngIf="!isOnFirstPage"
+    [@slideInAnimation]
+    class="bg-white bg-opacity-90 shadow-lg rounded-3xl overflow-hidden md:flex w-3/4 h-4/5"
+    ngNativeValidate
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="md:w-3/5">
+      <div class="flex flex-col items-center justify-center h-full">
+        <h2 class="text-2xl font-bold mb-8 text-gray-800 capitalize">
+          Lets pick an image for you
+        </h2>
+        <div class="bg-slate-200 rounded-full">
+          <div
+            class="image-placeholder cursor-pointer mt-1 w-80 focus:outline-none rounded-full h-80"
+            (click)="imageInput.click()"
+          >
+            <img
+              *ngIf="userImage; else defaultImage"
+              [src]="userImage"
+              alt="Selected Image"
+              class="w-80 focus:outline-none rounded-full h-80"
+            />
+            <ng-template #defaultImage>
+              <img
+                src="../../../assets/user-icon.jpg"
+                alt="Default User Icon"
+                class="w-80 focus:outline-none rounded-full h-80"
+              />
+            </ng-template>
+          </div>
+          <input
+            #imageInput
+            (change)="onImageSelected($event)"
+            type="file"
+            accept="image/*"
+            [hidden]="true"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="md:w-2/5 pr-12 flex flex-col justify-center">
+      <!-- Username -->
+      <div class="form-control relative mb-5 w-full">
+        <input
+          type="text"
+          name="userName"
+          required
+          [(ngModel)]="userName"
+          class="block w-full px-0 pt-4 pb-2 bg-transparent border-0 border-b-2 border-gray-800 text-lg text-gray-900 focus:border-darksalmon focus:outline-none focus:ring-0 peer"
+        />
+        <label
+          class="absolute top-0 left-0 flex items-center text-lg text-gray-600 transition-all transform peer-focus:text-darksalmon peer-focus:-translate-y-6 peer-valid:text-darksalmon peer-valid:-translate-y-6"
+        >
+          <span>Username</span>
+        </label>
+      </div>
+
+      <div class="w-full">
+        <button
+          type="submit"
+          class="w-full px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        >
+          Register
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

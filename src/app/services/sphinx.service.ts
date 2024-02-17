@@ -8,7 +8,7 @@ export class SphinxService {
   constructor(private http: HttpClient) {}
 
   uploadUserImage(formData: FormData): Observable<any> {
-    const apiUrl = `${environment.apiUrl}/sphinx/upload-image`;
+    const apiUrl = `${environment.apiUrl}/user/upload-image`;
     return this.http.post<any>(apiUrl, formData);
   }
 
