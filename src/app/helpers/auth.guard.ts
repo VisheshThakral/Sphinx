@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot) {
     const currentUser = this.authenticationService.currentUserValue;
-    if (Object.keys(currentUser).length > 0) {
+    if (currentUser && Object.keys(currentUser).length > 0) {
       return true;
     }
 

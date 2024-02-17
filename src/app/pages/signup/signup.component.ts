@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { slideInAnimation } from '../../helpers/animations';
 import { AuthService } from 'src/app/services/auth.service';
 import { SphinxService } from 'src/app/services/sphinx.service';
 
@@ -8,45 +9,57 @@ import { SphinxService } from 'src/app/services/sphinx.service';
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
-  providers: [SphinxService]
+  providers: [SphinxService],
+  animations: [slideInAnimation],
 })
 export class SignupComponent {
-  signupForm: FormGroup;
-  selectedImage: any = 'https://loremflickr.com/640/480/abstract';
+  isOnFirstPage: boolean = true;
+
+  fullName: string = '';
+  userName: string = '';
+  email: string = '';
+  password: string = '';
+  userImage;
+
+  imageFormData: FormData;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private sphinxService: SphinxService,
     private router: Router
-  ) {
-    this.signupForm = this.fb.group({
-      userName: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      fullName: ['', [Validators.required, Validators.minLength(3)]],
-      userImage: ['', [Validators.required]],
-    });
+  ) {}
+
+  goToSecondPage() {
+    this.isOnFirstPage = false;
   }
 
   onImageSelected(event: any) {
     const file = event.target.files[0];
-
     if (file) {
-      const formData = new FormData();
-      formData.append('userImage', file);
-      this.sphinxService.uploadUserImage(formData).subscribe((response)=> {
-        console.log(response)
-      })
+      const reader = new FileReader();
+      reader.onload = (e) => (this.userImage = e.target.result);
+      reader.readAsDataURL(file);
+      this.imageFormData = new FormData();
+      this.imageFormData.append('userImage', file);
     }
   }
 
   onSubmit() {
-    if (this.signupForm.valid) {
-      this.authService.signUp(this.signupForm.value).subscribe(() => {
-        this.router.navigate(['/']);
+    this.sphinxService
+      .uploadUserImage(this.imageFormData)
+      .subscribe((response) => {
+        let userImage: string = '';
+        userImage = response.imageName;
+        const userData = {
+          userName: this.userName,
+          email: this.email,
+          password: this.password,
+          fullName: this.fullName,
+          userImage,
+        };
+        this.authService.signUp(userData).subscribe(() => {
+          this.router.navigate(['/']);
+        });
       });
-    } else {
-      console.log('Form Invalid');
-    }
   }
 }
