@@ -1,11 +1,12 @@
 .list {
   background-color: #f8f9fa;
+  margin-top: 60px;
 }
 
-.flex-20 {
-  flex: 0.2;
+.flex-25 {
+  flex: 0.25;
 }
 
-.flex-60 {
-  flex: 0.6;
+.flex-50 {
+  flex: 0.5;
 }

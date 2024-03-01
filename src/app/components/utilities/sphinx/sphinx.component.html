@@ -2,11 +2,11 @@
   <div class="flex items-start gap-4">
     <!-- Author Image -->
     <div>
-      <div class="w-10 h-10">
+      <div class="w-14 h-14">
         <img
-          src="{{ user.userImage }}"
-          alt="image"
-          class="w-10 h-10 rounded-full"
+          src="{{ _sphinx.userImage }}"
+          alt="User Image"
+          class="w-14 h-14 rounded-full"
         />
       </div>
     </div>
@@ -14,23 +14,43 @@
     <!-- Sphinx Content -->
     <div class="flex-1">
       <div class="flex justify-between">
-        <div class="text-gray-500">@{{ _sphinx.userName }}</div>
+        <div class="mb-1">
+          <span class="text-lg">{{ _sphinx.fullName }} </span>
+          <span class="text-gray-600 ml-1 text-xs">@{{ _sphinx.userName }}</span>
+        </div>
         <div class="text-gray-500">
           {{ _sphinx.createdAt | date : "MMM d" }}
         </div>
       </div>
-      <p class="mb-2">{{ _sphinx.content | shorten : 200 }}</p>
+      <p class="mb-3">{{ _sphinx.content | shorten : 200 }}</p>
 
       <!-- Sphinx Actions -->
       <div class="flex items-center justify-between">
-        <!-- Comments -->
-        <div appTooltip="Comment" class="flex items-center cursor-pointer">
-          <i class="fa-regular fa-comment"></i>
-          <span class="ml-1">0</span>
+        <!-- Likes -->
+        <div
+          appTooltip="Like"
+          class="flex items-center cursor-pointer rounded-lg"
+        >
+          <div (click)="toggleLikes()">
+            <span *ngIf="_sphinx.isLikedByUser" class="text-pink-600"
+              ><i class="fa-solid fa-heart"></i
+            ></span>
+            <span *ngIf="!_sphinx.isLikedByUser">
+              <i class="fa-regular fa-heart"></i>
+            </span>
+          </div>
+          <span
+            class="ml-1"
+            [ngClass]="_sphinx.isLikedByUser === true ? 'text-pink-600' : ''"
+            >Like</span
+          >
         </div>
 
         <!-- Reposts -->
-        <div appTooltip="Repost" class="flex items-center cursor-pointer">
+        <div
+          appTooltip="Repost"
+          class="flex items-center cursor-pointer rounded-lg"
+        >
           <div (click)="toggleRepost()">
             <span class="text-green-600"
               ><i
@@ -48,31 +68,26 @@
             [ngClass]="
               _sphinx.isRepostedByUser === true ? 'text-green-600' : ''
             "
-            >{{ _sphinx.reposts }}</span
+            >Repost</span
           >
         </div>
 
-        <!-- Likes -->
-        <div appTooltip="Like" class="flex items-center cursor-pointer">
-          <div (click)="toggleLikes()">
-            <span *ngIf="_sphinx.isLikedByUser" class="text-pink-600"
-              ><i class="fa-solid fa-heart"></i
-            ></span>
-            <span *ngIf="!_sphinx.isLikedByUser">
-              <i class="fa-regular fa-heart"></i>
-            </span>
-          </div>
-          <span
-            class="ml-1"
-            [ngClass]="_sphinx.isLikedByUser === true ? 'text-pink-600' : ''"
-            >{{ _sphinx.likes }}</span
-          >
+        <!-- Comments -->
+        <div
+          appTooltip="Comment"
+          class="flex items-center cursor-pointer rounded-lg"
+        >
+          <i class="fa-regular fa-comment"></i>
+          <span class="ml-1">Comment</span>
         </div>
 
         <!-- Views -->
-        <div appTooltip="View" class="flex items-center cursor-pointer">
+        <div
+          appTooltip="View"
+          class="flex items-center cursor-pointer rounded-lg"
+        >
           <i class="fa-solid fa-chart-column"></i>
-          <span class="ml-1">0</span>
+          <span class="ml-1">Share</span>
         </div>
       </div>
     </div>

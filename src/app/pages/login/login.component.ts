@@ -14,7 +14,7 @@ export class LoginComponent {
 
   constructor(private router: Router, private authService: AuthService) {}
 
-  login() {
+  onSubmit() {
     this.authService
       .login({
         email: this.email,
