@@ -1,8 +1,5 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Sphinx } from '../../../models/sphinx.model';
-import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { User } from 'src/app/models/user.model';
 import { SphinxService } from 'src/app/services/sphinx.service';
 
 @Component({
@@ -11,36 +8,27 @@ import { SphinxService } from 'src/app/services/sphinx.service';
   styleUrls: ['./sphinx.component.css'],
   providers: [SphinxService],
 })
-export class SphinxComponent implements OnDestroy {
+export class SphinxComponent {
   _sphinx: Sphinx;
   sphinxId: string;
   @Input() set sphinx(value: Sphinx) {
     this._sphinx = value;
     this.sphinxId = value.sphinxId;
   }
-  user: User;
   sphinxLiked: boolean = false;
-  private subscription: Subscription;
 
-  constructor(
-    private authService: AuthService,
-    private sphinxService: SphinxService
-  ) {
-    this.subscription = this.authService.currentUser.subscribe((user) => {
-      this.user = user;
-    });
-  }
+  constructor(private sphinxService: SphinxService) {}
 
   toggleLikes() {
     this._sphinx.isLikedByUser = !this._sphinx.isLikedByUser;
     if (this._sphinx.isLikedByUser) {
       this.sphinxService
         .likeSphinx(this.sphinxId)
-        .subscribe((response) => this._sphinx.likes++);
+        .subscribe(() => this._sphinx.likes++);
     } else {
       this.sphinxService
         .dislikeSphinx(this.sphinxId)
-        .subscribe((response) => this._sphinx.likes--);
+        .subscribe(() => this._sphinx.likes--);
     }
   }
 
@@ -49,15 +37,11 @@ export class SphinxComponent implements OnDestroy {
     if (this._sphinx.isRepostedByUser) {
       this.sphinxService
         .repostSphinx(this.sphinxId)
-        .subscribe((response) => this._sphinx.reposts++);
+        .subscribe(() => this._sphinx.reposts++);
     } else {
       this.sphinxService
         .undoRepost(this.sphinxId)
-        .subscribe((response) => this._sphinx.reposts--);
+        .subscribe(() => this._sphinx.reposts--);
     }
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }

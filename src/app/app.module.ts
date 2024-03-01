@@ -21,6 +21,7 @@ import { AuthInterceptorService } from './interceptors/auth-interceptor.service'
 import { LoadingComponent } from './components/utilities/loading/loading.component';
 import { SearchInputComponent } from './components/utilities/search-input/search-input.component';
 import { SphinxModalComponent } from './components/utilities/sphinx-modal/sphinx-modal.component';
+import { AlertModalComponent } from './components/utilities/alert-modal/alert-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,7 @@ import { SphinxModalComponent } from './components/utilities/sphinx-modal/sphinx
     LoadingComponent,
     SearchInputComponent,
     SphinxModalComponent,
+    AlertModalComponent,
   ],
   imports: [
     FormsModule,
