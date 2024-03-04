@@ -23,10 +23,11 @@ The back end of Sphinx provides a range of features and functionalities, includi
 
 ## Installation
 
-1. Clone or download the front-end repository to your local machine.
+1. Clone or download the front-end and back-end repositories to your local machine.
+```
 "https://github.com/VisheshThakral/Sphinx"
-And back-end repository:
 "https://github.com/VisheshThakral/Sphinx-Back-end"
+```
 
 2. Install the required packages in both repositories
 
@@ -60,5 +61,5 @@ This project is still in development phase. If you encounter any issues, have su
 - Special thanks to the open-source community for providing valuable tools and resources.
 
 ## Contact
-Email: thakralvishesh@gmail.com
-Linkedin: https://www.linkedin.com/in/vishesh-thakral/
+ - Email: thakralvishesh@gmail.com
+ - Linkedin: https://www.linkedin.com/in/vishesh-thakral/
