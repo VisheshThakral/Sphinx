@@ -22,6 +22,7 @@ import { LoadingComponent } from './components/utilities/loading/loading.compone
 import { SearchInputComponent } from './components/utilities/search-input/search-input.component';
 import { SphinxModalComponent } from './components/utilities/sphinx-modal/sphinx-modal.component';
 import { AlertModalComponent } from './components/utilities/alert-modal/alert-modal.component';
+import { SphinxDetailsComponent } from './components/sphinx-details/sphinx-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +40,7 @@ import { AlertModalComponent } from './components/utilities/alert-modal/alert-mo
     SearchInputComponent,
     SphinxModalComponent,
     AlertModalComponent,
+    SphinxDetailsComponent,
   ],
   imports: [
     FormsModule,
