@@ -1,4 +1,6 @@
-<div class="bg-white shadow-md rounded-md p-4">
+<div
+  class="bg-white shadow-md rounded-md p-4 cursor-pointer"
+>
   <div class="flex items-start gap-4">
     <!-- Author Image -->
     <div>
@@ -16,7 +18,9 @@
       <div class="flex justify-between">
         <div class="mb-1">
           <span class="text-lg">{{ _sphinx.fullName }} </span>
-          <span class="text-gray-600 ml-1 text-xs">@{{ _sphinx.userName }}</span>
+          <span class="text-gray-600 ml-1 text-xs"
+            >@{{ _sphinx.userName }}</span
+          >
         </div>
         <div class="text-gray-500">
           {{ _sphinx.createdAt | date : "MMM d" }}
@@ -81,12 +85,12 @@
           <span class="ml-1">Comment</span>
         </div>
 
-        <!-- Views -->
+        <!-- Share -->
         <div
-          appTooltip="View"
+          appTooltip="Share"
           class="flex items-center cursor-pointer rounded-lg"
         >
-          <i class="fa-solid fa-chart-column"></i>
+          <i class="fa-solid fa-arrow-up-from-bracket"></i>
           <span class="ml-1">Share</span>
         </div>
       </div>

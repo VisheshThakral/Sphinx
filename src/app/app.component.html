@@ -1,4 +1,7 @@
 <div>
+  <app-header *ngIf="currentUser"></app-header>
   <app-loading></app-loading>
-  <router-outlet></router-outlet>
+  <div [ngClass]="currentUser ? 'mt-18' : ''">
+    <router-outlet></router-outlet>
+  </div>
 </div>
