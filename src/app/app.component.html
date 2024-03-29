@@ -1,4 +1,5 @@
 <div>
+  <alert-modal *ngIf="showErrorModal"><</alert-modal>
   <app-header *ngIf="currentUser"></app-header>
   <app-loading></app-loading>
   <div [ngClass]="currentUser ? 'mt-18' : ''">

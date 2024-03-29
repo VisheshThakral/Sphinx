@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
-
+import { SphinxModalService } from './sphinx-modal.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -13,7 +13,11 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private sphinxModalService: SphinxModalService
+  ) {
     const user = localStorage.getItem('user');
 
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(user));
@@ -35,6 +39,13 @@ export class AuthService {
             localStorage.setItem('user', JSON.stringify(user));
             this.currentUserSubject.next(user);
           }
+        }),
+        catchError((error) => {
+          // Handle error here
+          this.sphinxModalService.openTweetModal$.subscribe(() => {
+            this.sphinxModalService.showErrorModal = true;
+          })
+          return throwError(error);
         })
       );
   }

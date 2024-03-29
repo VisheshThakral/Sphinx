@@ -8,6 +8,7 @@ export class SphinxModalService {
   constructor() {}
   private openTweetModalSource = new Subject<void>();
   private closeTweetModalSource = new Subject<void>();
+  showErrorModal: Boolean = false;
 
   openTweetModal$ = this.openTweetModalSource.asObservable();
   closeTweetModal$ = this.closeTweetModalSource.asObservable();

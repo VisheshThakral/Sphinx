@@ -32,7 +32,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         this.loadingService.hideLoader();
       }),
       catchError((err) => {
-        this.authService.logout();
+        // this.authService.logout();
         return throwError(err);
       })
     );
